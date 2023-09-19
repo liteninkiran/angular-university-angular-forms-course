@@ -1,5 +1,4 @@
-
->>> body {
+body {
     margin: 0;
 }
 
@@ -10,7 +9,6 @@ main {
 mat-toolbar {
     position: fixed;
     z-index: 1000;
-
 }
 
 .main-content {
