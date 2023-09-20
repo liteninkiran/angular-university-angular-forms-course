@@ -14,3 +14,7 @@ mat-toolbar {
 .main-content {
     margin-top: 80px;
 }
+
+mat-sidenav {
+    min-width: 200px;
+}
