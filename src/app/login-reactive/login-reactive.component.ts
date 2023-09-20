@@ -12,6 +12,14 @@ export class LoginReactiveComponent implements OnInit {
     public form: FormGroup;
     public formGroup: IFormGroupDef = {} as IFormGroupDef;
 
+    get email() {
+        return this.form.controls['email'];
+    }
+
+    get password() {
+        return this.form.controls['password'];
+    }
+
     constructor(
         private fb: FormBuilder
     ) {
@@ -29,14 +37,14 @@ export class LoginReactiveComponent implements OnInit {
 
     private setFormGroup(): void {
         this.formGroup = {
-            email: ['me@domain.com', {
+            email: ['', {
                 validators: [
                     Validators.required,
                     Validators.email,
                 ],
                 updateOn: 'blur',
             }],
-            password: ['pa55word', {
+            password: ['', {
                 validators: [
                     Validators.required,
                     Validators.minLength(8),

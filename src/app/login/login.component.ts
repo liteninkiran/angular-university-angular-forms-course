@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'login',
@@ -6,12 +7,21 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+    public val = {
+        email: 'hello@gmail.com',
+        password: '123456',
+    };
 
     constructor() {
 
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
+    }
+
+    public login(loginForm: NgForm, submit): void {
+        console.log(loginForm.value, loginForm.valid, submit);
+        console.log('val', this.val);
     }
 }
