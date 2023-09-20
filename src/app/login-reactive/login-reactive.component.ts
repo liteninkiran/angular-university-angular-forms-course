@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormControlOptions, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { createPasswordStrengthValidator } from '../validators/password-strength.validator';
 
 @Component({
@@ -9,8 +9,22 @@ import { createPasswordStrengthValidator } from '../validators/password-strength
 })
 export class LoginReactiveComponent implements OnInit {
 
-    public form: FormGroup;
-    public formGroup: IFormGroupDef = {} as IFormGroupDef;
+    public form = this.fb.group({
+        email: ['', {
+            validators: [
+                Validators.required,
+                Validators.email,
+            ],
+            updateOn: 'blur',
+        }],
+        password: ['', {
+            validators: [
+                Validators.required,
+                Validators.minLength(8),
+                createPasswordStrengthValidator(),
+            ],
+        }],
+    });
 
     get email() {
         return this.form.controls['email'];
@@ -27,39 +41,13 @@ export class LoginReactiveComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.setupForm();
+
     }
 
-    private setupForm(): void {
-        this.setFormGroup();
-        this.setForm();
+    public login() {
+        const formValue = this.form.value;
+        this.form.patchValue({
+            
+        });
     }
-
-    private setFormGroup(): void {
-        this.formGroup = {
-            email: ['', {
-                validators: [
-                    Validators.required,
-                    Validators.email,
-                ],
-                updateOn: 'blur',
-            }],
-            password: ['', {
-                validators: [
-                    Validators.required,
-                    Validators.minLength(8),
-                    createPasswordStrengthValidator(),
-                ],
-            }],
-        }
-    }
-
-    private setForm(): void {
-        this.form = this.fb.group(this.formGroup);
-    }
-}
-
-interface IFormGroupDef {
-    email: [string, FormControlOptions],
-    password: [string, FormControlOptions],
 }

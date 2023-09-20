@@ -27,8 +27,8 @@
 
                 <!-- Min Length Error -->
                 <mat-error *ngIf="email.errors?.minlength">
-                    Your email must have minimum {{email.errors?.minlength.requiredLength}} chars,
-                    but it only has {{email.errors?.minlength.actualLength}}.
+                    Your email must have minimum {{ email.errors?.minlength.requiredLength }} chars,
+                    but it only has {{ email.errors?.minlength.actualLength }}.
                 </mat-error>
 
                 <!-- Email Format Error -->
@@ -62,8 +62,8 @@
 
                 <!-- Min Length Error -->
                 <div class="field-message" *ngIf="error.minlength">
-                    Your password must have minimum {{error.minlength.requiredLength}} chars,
-                    but it only has {{error.minlength.actualLength}}.
+                    Your password must have minimum {{ error.minlength.requiredLength }} chars,
+                    but it only has {{ error.minlength.actualLength }}.
                 </div>
 
                 <!-- Password Strength Error -->
@@ -74,7 +74,7 @@
             </ng-container>
 
             <!-- Login Button -->
-            <button mat-raised-button color="primary" [disabled]="!form.valid">
+            <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="login()">
                 Login
             </button>
 
