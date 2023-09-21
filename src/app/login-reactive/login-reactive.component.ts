@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { createPasswordStrengthValidator } from '../validators/password-strength.validator';
+
+interface IFormControlDef {
+    email: AbstractControlOptions,
+    password: AbstractControlOptions,
+}
 
 @Component({
     selector: 'login',
@@ -9,22 +14,30 @@ import { createPasswordStrengthValidator } from '../validators/password-strength
 })
 export class LoginReactiveComponent implements OnInit {
 
-    public form = this.fb.group({
-        email: ['', {
+    private formControlDefs: IFormControlDef = {
+        email: {
             validators: [
                 Validators.required,
                 Validators.email,
             ],
             updateOn: 'blur',
-        }],
-        password: ['', {
+        },
+        password: {
             validators: [
                 Validators.required,
                 Validators.minLength(8),
                 createPasswordStrengthValidator(),
             ],
-        }],
-    });
+        },
+    }
+
+    private formControls = {
+        //email: this.fb.nonNullable.control('', this.formControlDefs.email),
+        email: ['', this.formControlDefs.email],
+        password: ['', this.formControlDefs.password],
+    }
+
+    public form = this.fb.group(this.formControls);
 
     get email() {
         return this.form.controls['email'];
@@ -35,7 +48,7 @@ export class LoginReactiveComponent implements OnInit {
     }
 
     constructor(
-        private fb: FormBuilder
+        private fb: NonNullableFormBuilder
     ) {
 
     }
@@ -44,10 +57,12 @@ export class LoginReactiveComponent implements OnInit {
 
     }
 
-    public login() {
-        const formValue = this.form.value;
-        this.form.patchValue({
-            
-        });
+    public login(): void {
+
+    }
+
+    public reset(): void {
+        this.form.reset();
+        console.log(this.form.value);
     }
 }

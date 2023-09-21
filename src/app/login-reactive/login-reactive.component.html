@@ -78,14 +78,22 @@
                 Login
             </button>
 
+            <!-- Reset Button -->
+            <button mat-raised-button (click)="reset()">
+                Reset
+            </button>
+
         </form>
 
-        <div class="form-val">
-            Value: <pre>{{ form.value | json }}</pre>
-        </div>
+        <!-- Debug -->
+        <div>
+            <div class="form-val">
+                Value: <pre>{{ form.value | json }}</pre>
+            </div>
 
-        <div class="form-val">
-            Validity: {{ form.valid.toString() | uppercase }}
+            <div class="form-val">
+                Validity: {{ form.valid.toString() | uppercase }}
+            </div>
         </div>
 
     </mat-card-content>
