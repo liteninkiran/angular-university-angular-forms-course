@@ -1,8 +1,30 @@
 <div [formGroup]="form">
 
-    <mat-radio-group formControlName="courseType">
-        <mat-radio-button value="free">Free</mat-radio-button>
-        <mat-radio-button value="premium">Premium</mat-radio-button>
-    </mat-radio-group>
+    <!-- Course Type -->
+    <fieldset>
+        <legend>Course Type</legend>
+        <mat-radio-group formControlName="courseType">
+            <mat-radio-button value="free">Free</mat-radio-button>
+            <mat-radio-button value="premium">Premium</mat-radio-button>
+        </mat-radio-group>
+    </fieldset>
+
+    <!-- Price -->
+    <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput placeholder="Price" formControlName="price" type="number">
+    </mat-form-field>
 
 </div>
+
+<pre>
+    <p>Form Value</p>
+    {{ form.value | json }}
+    <hr>
+    <p>Form Valid</p>
+    {{ form.valid }}
+    <hr>
+    <p>Price Errors</p>
+    {{ priceControl.errors | json }}
+    <hr>
+</pre>
