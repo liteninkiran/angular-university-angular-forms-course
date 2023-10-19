@@ -1,0 +1,13 @@
+<div [formGroup]="form">
+
+    <mat-form-field>
+
+        <input matInput placeholder="Course Title" formControlName="title" #title [maxlength]="validators.title.maxLength">
+
+        <mat-hint align="end">
+            {{ title.value.length }} / {{ validators.title.maxLength }}
+        </mat-hint>
+
+    </mat-form-field>
+
+</div>
