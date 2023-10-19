@@ -1,9 +1,19 @@
 <div [formGroup]="form">
 
+    <!-- Title -->
     <mat-form-field>
 
-        <mat-label>Course Title</mat-label>
-        <input matInput placeholder="Course Title" formControlName="title" #title [maxlength]="validatorDefs.title.maxLength">
+        <mat-label>
+            Course Title
+        </mat-label>
+
+        <input
+            #title
+            matInput
+            placeholder="Course Title"
+            formControlName="title"
+            [maxlength]="validatorDefs.title.maxLength"
+        >
 
         <mat-hint align="end">
             {{ title.value.length }} / {{ validatorDefs.title.maxLength }}
@@ -15,4 +25,36 @@
 
     </mat-form-field>
 
+    <!-- Release Date -->
+    <mat-form-field>
+
+        <mat-label>
+            Release Date
+        </mat-label>
+
+        <input
+            #releaseDate
+            matInput
+            placeholder="Release Date"
+            formControlName="releaseDate"
+            [matDatepicker]="releaseDatePicker"
+        >
+        <mat-datepicker-toggle matSuffix [for]="releaseDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #releaseDatePicker></mat-datepicker>
+
+        <mat-hint align="end">
+            
+        </mat-hint>
+
+        <mat-error *ngIf="courseTitle.errors?.titleExists">
+            
+        </mat-error>
+
+    </mat-form-field>
+
+</div>
+
+<div class="form-val">
+    <p>Form Value</p>
+    <pre>{{ form.value | json }}</pre>
 </div>

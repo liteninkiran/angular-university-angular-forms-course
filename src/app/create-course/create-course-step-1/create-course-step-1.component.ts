@@ -31,10 +31,16 @@ export class CreateCourseStep1Component implements OnInit {
             ],
             updateOn: 'blur',
         },
+        releaseDate: {
+            validators: [
+                Validators.required,
+            ],
+        },
     }
 
     private formControls = {
         title: ['', this.formControlDefs.title],
+        releaseDate: [new Date(), this.formControlDefs.releaseDate],
     }
 
     public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
@@ -57,8 +63,10 @@ export class CreateCourseStep1Component implements OnInit {
 
 interface IFormControlDef {
     title: AbstractControlOptions;
+    releaseDate: AbstractControlOptions;
 }
 
 interface IFormGroupDef {
     title: FormControl<string>;
+    releaseDate: FormControl<Date>;
 }
