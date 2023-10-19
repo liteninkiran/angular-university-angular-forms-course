@@ -9,9 +9,21 @@ h2 {
 
 .stepper-buttons {
     margin-top: 10px;
+    display: flex;
+
+    div {
+        flex: 1;
+
+        button {
+            width: 200px;
+        }
+    }
 }
 
+.stepper-buttons > div:first-of-type {
+    text-align: left;
+}
 
-.stepper-buttons button {
-    margin-right: 5px;
+.stepper-buttons > div:nth-of-type(2) {
+    text-align: right;
 }

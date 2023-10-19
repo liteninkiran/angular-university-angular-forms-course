@@ -16,7 +16,10 @@ export class CreateCourseStep1Component implements OnInit {
         title: {
             minLength: 5,
             maxLength: 60,
-        }
+        },
+        longDescription: {
+            minLength: 3,
+        },
     }
 
     private formControlDefs: IFormControlDef = {
@@ -36,18 +39,32 @@ export class CreateCourseStep1Component implements OnInit {
                 Validators.required,
             ],
         },
+        downloadsAllowed: {
+            validators: [
+                Validators.required,
+            ],
+        },
+        longDescription: {
+            validators: [
+                Validators.required,
+                Validators.minLength(this.validatorDefs.longDescription.minLength),
+            ],
+        },
     }
 
     private formControls = {
         title: ['', this.formControlDefs.title],
         releaseDate: [new Date(), this.formControlDefs.releaseDate],
+        downloadsAllowed: [false, this.formControlDefs.downloadsAllowed],
+        longDescription: ['', this.formControlDefs.longDescription],
     }
 
     public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
 
-    get courseTitle() {
-        return this.form.controls['title'];
-    }
+    get courseTitle()            { return this.form.controls['title'];            }
+    get courseReleaseDate()      { return this.form.controls['releaseDate'];      }
+    get courseDownloadsAllowed() { return this.form.controls['downloadsAllowed']; }
+    get courseLongDescription()  { return this.form.controls['longDescription'];  }
 
     constructor(
         private fb: FormBuilder,
@@ -64,9 +81,13 @@ export class CreateCourseStep1Component implements OnInit {
 interface IFormControlDef {
     title: AbstractControlOptions;
     releaseDate: AbstractControlOptions;
+    downloadsAllowed: AbstractControlOptions;
+    longDescription: AbstractControlOptions;
 }
 
 interface IFormGroupDef {
     title: FormControl<string>;
     releaseDate: FormControl<Date>;
+    downloadsAllowed: FormControl<boolean>;
+    longDescription: FormControl<string>;
 }

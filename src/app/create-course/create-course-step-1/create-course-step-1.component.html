@@ -42,12 +42,28 @@
         <mat-datepicker-toggle matSuffix [for]="releaseDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #releaseDatePicker></mat-datepicker>
 
-        <mat-hint align="end">
-            
-        </mat-hint>
+    </mat-form-field>
 
-        <mat-error *ngIf="courseTitle.errors?.titleExists">
-            
+    <mat-checkbox color="primary" formControlName="downloadsAllowed">
+        Downloads Allowed?
+    </mat-checkbox>
+
+    <!-- Long Description -->
+    <mat-form-field appearance="outline">
+
+        <mat-label>
+            Long Description
+        </mat-label>
+
+        <textarea
+            #longDescription
+            matInput
+            placeholder="Long Description"
+            formControlName="longDescription"
+        ></textarea>
+
+        <mat-error *ngIf="courseLongDescription.errors?.minlength">
+            Must be at least 3 characters
         </mat-error>
 
     </mat-form-field>
