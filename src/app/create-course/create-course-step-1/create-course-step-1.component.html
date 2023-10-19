@@ -59,11 +59,14 @@
         <textarea
             #longDescription
             matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="10"
             placeholder="Long Description"
             formControlName="longDescription"
         ></textarea>
 
-        <mat-error *ngIf="courseLongDescription.errors?.minlength">
+         <mat-error *ngIf="courseLongDescription.errors?.minlength">
             Must be at least 3 characters
         </mat-error>
 
@@ -83,9 +86,4 @@
         </mat-select>
     </mat-form-field>
 
-</div>
-
-<div class="form-val">
-    <p>Form Value</p>
-    <pre>{{ form.value | json }}</pre>
 </div>
