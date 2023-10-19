@@ -9,10 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CreateCourseStep2Component implements OnInit {
 
     constructor() {
-        
+
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
     }
 }

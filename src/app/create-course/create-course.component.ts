@@ -8,9 +8,11 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 })
 export class CreateCourseComponent implements OnInit {
 
-
-    ngOnInit() {
+    constructor() {
 
     }
 
+    public ngOnInit(): void {
+
+    }
 }

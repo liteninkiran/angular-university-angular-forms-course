@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { createPasswordStrengthValidator } from '../validators/password-strength.validator';
 
 interface IFormControlDef {
-    email: AbstractControlOptions,
-    password: AbstractControlOptions,
+    email: AbstractControlOptions;
+    password: AbstractControlOptions;
+}
+
+interface IFormGroupDef {
+    email: FormControl<string>;
+    password: FormControl<string>;
 }
 
 @Component({
@@ -32,12 +37,11 @@ export class LoginReactiveComponent implements OnInit {
     }
 
     private formControls = {
-        //email: this.fb.nonNullable.control('', this.formControlDefs.email),
         email: ['', this.formControlDefs.email],
         password: ['', this.formControlDefs.password],
     }
 
-    public form = this.fb.group(this.formControls);
+    public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
 
     get email() {
         return this.form.controls['email'];
@@ -58,11 +62,10 @@ export class LoginReactiveComponent implements OnInit {
     }
 
     public login(): void {
-
+        const val = this.form.value;
     }
 
     public reset(): void {
         this.form.reset();
-        console.log(this.form.value);
     }
 }

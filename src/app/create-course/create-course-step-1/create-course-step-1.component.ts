@@ -12,11 +12,10 @@ import { filter } from 'rxjs/operators';
 export class CreateCourseStep1Component implements OnInit {
 
     constructor() {
-        
-    }
-
-    ngOnInit() {
 
     }
 
+    public ngOnInit(): void {
+
+    }
 }
