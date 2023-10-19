@@ -7,5 +7,5 @@ export function courseTitleValidator(courses: CoursesService): AsyncValidatorFn 
             const course = courses.find(course => course.description.toLowerCase() === control.value.toLowerCase());
             return course ? { titleExists: true } : null;
         })
-    )
+    );
 }

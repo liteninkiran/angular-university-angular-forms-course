@@ -2,11 +2,16 @@
 
     <mat-form-field>
 
-        <input matInput placeholder="Course Title" formControlName="title" #title [maxlength]="validators.title.maxLength">
+        <mat-label>Course Title</mat-label>
+        <input matInput placeholder="Course Title" formControlName="title" #title [maxlength]="validatorDefs.title.maxLength">
 
         <mat-hint align="end">
-            {{ title.value.length }} / {{ validators.title.maxLength }}
+            {{ title.value.length }} / {{ validatorDefs.title.maxLength }}
         </mat-hint>
+
+        <mat-error *ngIf="courseTitle.errors?.titleExists">
+            This title is already being used
+        </mat-error>
 
     </mat-form-field>
 
