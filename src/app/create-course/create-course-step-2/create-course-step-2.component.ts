@@ -28,10 +28,18 @@ export class CreateCourseStep2Component implements OnInit {
                 Validators.pattern('[0-9]+'),
             ],
         },
+        promoStart: {
+            validators: [ ],
+        },
+        promoEnd: {
+            validators: [ ],
+        },
     }
     private formControls = {
         courseType: ['premium', this.formControlDefs.courseType],
         price: [null as number, this.formControlDefs.price],
+        promoStart: [null as Date, this.formControlDefs.promoStart],
+        promoEnd: [null as Date, this.formControlDefs.promoEnd],
     }
     public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
     public priceControl = this.form.get('price');
@@ -44,8 +52,13 @@ export class CreateCourseStep2Component implements OnInit {
     }
 
     public ngOnInit(): void {
+        this.watchFormValue();
+    }
+
+    public watchFormValue(): void {
         const options = { emitEvent: false }
         this.form.valueChanges.subscribe((value) => {
+            console.log(value);
             if (value.courseType === 'free' && this.priceControl.enabled) {
                 this.price = value.price;
                 this.priceControl.setValue(null, options);
@@ -61,9 +74,13 @@ export class CreateCourseStep2Component implements OnInit {
 interface IFormControlDef {
     courseType: AbstractControlOptions;
     price: AbstractControlOptions;
+    promoStart: AbstractControlOptions;
+    promoEnd: AbstractControlOptions;
 }
 
 interface IFormGroupDef {
     courseType: FormControl<string>;
     price: FormControl<number>;
+    promoStart: FormControl<Date>;
+    promoEnd: FormControl<Date>;
 }
