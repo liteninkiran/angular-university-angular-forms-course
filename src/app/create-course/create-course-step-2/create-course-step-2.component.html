@@ -24,6 +24,9 @@
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="promotionalPeriodPicker"></mat-datepicker-toggle>
         <mat-date-range-picker #promotionalPeriodPicker></mat-date-range-picker>
+        <mat-error *ngIf="form.errors?.promoPeriod && form.dirty">
+            Start date must be before end date
+        </mat-error>
     </mat-form-field>
 
 </div>

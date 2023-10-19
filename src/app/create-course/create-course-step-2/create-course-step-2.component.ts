@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { createPromoRangeValidator } from '../../validators/date-range.validator';
 
 @Component({
     selector: 'create-course-step-2',
@@ -41,7 +42,13 @@ export class CreateCourseStep2Component implements OnInit {
         promoStart: [null as Date, this.formControlDefs.promoStart],
         promoEnd: [null as Date, this.formControlDefs.promoEnd],
     }
-    public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
+    private formOptions: AbstractControlOptions = {
+        validators: [
+            createPromoRangeValidator(),
+        ],
+        updateOn: 'blur',
+    }
+    public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls, this.formOptions);
     public priceControl = this.form.get('price');
     private price: number;
 
@@ -58,7 +65,6 @@ export class CreateCourseStep2Component implements OnInit {
     public watchFormValue(): void {
         const options = { emitEvent: false }
         this.form.valueChanges.subscribe((value) => {
-            console.log(value);
             if (value.courseType === 'free' && this.priceControl.enabled) {
                 this.price = value.price;
                 this.priceControl.setValue(null, options);
