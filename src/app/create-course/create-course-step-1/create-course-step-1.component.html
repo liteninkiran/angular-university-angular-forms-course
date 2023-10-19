@@ -44,6 +44,7 @@
 
     </mat-form-field>
 
+    <!-- Downloads Allowed -->
     <mat-checkbox color="primary" formControlName="downloadsAllowed">
         Downloads Allowed?
     </mat-checkbox>
@@ -66,6 +67,20 @@
             Must be at least 3 characters
         </mat-error>
 
+    </mat-form-field>
+
+    <!-- Category -->
+    <mat-form-field>
+        <mat-label>
+            Select Category
+        </mat-label>
+        <mat-select placeholder="Select Category" formControlName="category">
+            <ng-container *ngFor="let category of (courseCategories$ | async)">
+                <mat-option [value]="category.code">
+                    {{ category.description }}
+                </mat-option>
+            </ng-container>
+        </mat-select>
     </mat-form-field>
 
 </div>

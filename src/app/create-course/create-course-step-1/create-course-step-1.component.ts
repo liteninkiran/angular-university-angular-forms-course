@@ -21,7 +21,6 @@ export class CreateCourseStep1Component implements OnInit {
             minLength: 3,
         },
     }
-
     private formControlDefs: IFormControlDef = {
         title: {
             validators: [
@@ -50,21 +49,28 @@ export class CreateCourseStep1Component implements OnInit {
                 Validators.minLength(this.validatorDefs.longDescription.minLength),
             ],
         },
+        category: {
+            validators: [
+                Validators.required,
+            ],
+        },
     }
-
     private formControls = {
         title: ['', this.formControlDefs.title],
         releaseDate: [new Date(), this.formControlDefs.releaseDate],
         downloadsAllowed: [false, this.formControlDefs.downloadsAllowed],
         longDescription: ['', this.formControlDefs.longDescription],
+        category: ['BEGINNER', this.formControlDefs.category],
     }
-
     public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
+
+    public courseCategories$: Observable<ICourseCategory[]>;
 
     get courseTitle()            { return this.form.controls['title'];            }
     get courseReleaseDate()      { return this.form.controls['releaseDate'];      }
     get courseDownloadsAllowed() { return this.form.controls['downloadsAllowed']; }
     get courseLongDescription()  { return this.form.controls['longDescription'];  }
+    get courseCategory()         { return this.form.controls['category'];         }
 
     constructor(
         private fb: FormBuilder,
@@ -74,7 +80,7 @@ export class CreateCourseStep1Component implements OnInit {
     }
 
     public ngOnInit(): void {
-
+        this.courseCategories$ = this.coursesService.findCourseCategories();
     }
 }
 
@@ -83,6 +89,7 @@ interface IFormControlDef {
     releaseDate: AbstractControlOptions;
     downloadsAllowed: AbstractControlOptions;
     longDescription: AbstractControlOptions;
+    category: AbstractControlOptions;
 }
 
 interface IFormGroupDef {
@@ -90,4 +97,10 @@ interface IFormGroupDef {
     releaseDate: FormControl<Date>;
     downloadsAllowed: FormControl<boolean>;
     longDescription: FormControl<string>;
+    category: FormControl<string>;
+}
+
+interface ICourseCategory {
+    code: string;
+    description: string;
 }
