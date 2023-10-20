@@ -65,12 +65,8 @@ export class CreateCourseStep1Component implements OnInit {
     public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
 
     public courseCategories$: Observable<ICourseCategory[]>;
-
-    get courseTitle()            { return this.form.controls['title'];            }
-    get courseReleaseDate()      { return this.form.controls['releaseDate'];      }
-    get courseDownloadsAllowed() { return this.form.controls['downloadsAllowed']; }
-    get courseLongDescription()  { return this.form.controls['longDescription'];  }
-    get courseCategory()         { return this.form.controls['category'];         }
+    public courseTitle = this.form.get('title');
+    public courseLongDescription = this.form.get('longDescription');
 
     constructor(
         private fb: FormBuilder,
@@ -81,6 +77,28 @@ export class CreateCourseStep1Component implements OnInit {
 
     public ngOnInit(): void {
         this.courseCategories$ = this.coursesService.findCourseCategories();
+        this.setFormValues();
+        this.watchForm();
+    }
+
+    public watchForm(): void {
+        this.form.valueChanges.pipe(
+            filter(() => this.form.valid)
+        ).subscribe((value) => localStorage.setItem('STEP_1', JSON.stringify(value)));
+    }
+
+    public setFormValues(): void {
+        const draft = localStorage.getItem('STEP_1');
+        if (draft) {
+            this.form.setValue(JSON.parse(draft));
+        }
+    }
+
+    public onFocus(event: FocusEvent): void {
+        switch ((event.target as HTMLElement).attributes['formcontrolname'].value) {
+            case 'title': return this.courseTitle.setErrors(null);
+            case 'longDescription': return this.courseLongDescription.setErrors(null);
+        }
     }
 }
 

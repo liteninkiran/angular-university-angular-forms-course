@@ -13,6 +13,7 @@
             placeholder="Course Title"
             formControlName="title"
             [maxlength]="validatorDefs.title.maxLength"
+            (focus)="onFocus($event)"
         >
 
         <mat-hint align="end">
@@ -21,6 +22,14 @@
 
         <mat-error *ngIf="courseTitle.errors?.titleExists">
             This title is already being used
+        </mat-error>
+
+        <mat-error *ngIf="courseTitle.errors?.required">
+            The title is a required field
+        </mat-error>
+
+        <mat-error *ngIf="courseTitle.errors?.minlength">
+            The title must be at least {{ validatorDefs.title.minLength }} characters long
         </mat-error>
 
     </mat-form-field>
@@ -64,10 +73,15 @@
             cdkAutosizeMaxRows="10"
             placeholder="Long Description"
             formControlName="longDescription"
+            (focus)="onFocus($event)"
         ></textarea>
 
-         <mat-error *ngIf="courseLongDescription.errors?.minlength">
-            Must be at least 3 characters
+         <mat-error *ngIf="courseLongDescription.errors?.minlength && courseLongDescription.dirty">
+            The Long Description must be at least {{ validatorDefs.longDescription.minLength }} characters
+        </mat-error>
+
+        <mat-error *ngIf="courseLongDescription.errors?.required && courseLongDescription.dirty">
+            The Long Description is a required field
         </mat-error>
 
     </mat-form-field>
