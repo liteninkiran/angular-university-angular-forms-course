@@ -14,4 +14,10 @@ export class FileUploadComponent {
     @Input() public requiredFileType: string;
 
     public fileName: string = '';
+
+    public onFileSelected(event: Event) {
+        const target: HTMLInputElement = event.target as HTMLInputElement;
+        const file: File = target.files[0];
+        this.fileName = file.name;
+    }
 }
