@@ -1,0 +1,50 @@
+<!-- Top Level Container -->
+<div class="stepper-buttons">
+
+    <!-- Previous Button Container -->
+    <div>
+
+        <!-- Previous Button -->
+        <button mat-raised-button matStepperPrevious>
+
+            <!-- Start Icon -->
+            <mat-icon iconPositionStart *ngIf="config.prev.startIcon">
+                {{ config.prev.startIcon }}
+            </mat-icon>
+
+            <!-- Text -->
+            {{ config.prev.text }}
+
+            <!-- End Icon -->
+            <mat-icon iconPositionEnd *ngIf="config.prev.endIcon">
+                {{ config.prev.endIcon }}
+            </mat-icon>
+
+        </button>
+
+    </div>
+
+    <!-- Next Button Container -->
+    <div>
+
+        <!-- Next Button -->
+        <button mat-raised-button color="primary" matStepperNext>
+
+            <!-- Start Icon -->
+            <mat-icon iconPositionStart *ngIf="config.next.startIcon">
+                {{ config.next.startIcon }}
+            </mat-icon>
+
+            <!-- Text -->
+            {{ config.next.text }}
+
+            <!-- End Icon -->
+            <mat-icon iconPositionEnd *ngIf="config.next.endIcon">
+                {{ config.next.endIcon }}
+            </mat-icon>
+
+        </button>
+
+    </div>
+
+</div>

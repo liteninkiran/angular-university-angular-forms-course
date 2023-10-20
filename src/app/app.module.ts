@@ -42,6 +42,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoginReactiveComponent } from './login-reactive/login-reactive.component';
 import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
+import { StepperButtonsComponent } from './create-course/stepper-buttons/stepper-buttons.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
         CreateCourseStep1Component,
         CreateCourseStep2Component,
         CreateCourseStep3Component,
+        StepperButtonsComponent,
         AddressFormComponent,
         FileUploadComponent,
         LoginReactiveComponent,
