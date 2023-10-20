@@ -1,49 +1,36 @@
 <fieldset [formGroup]="form">
 
-    <legend>{{legend}}</legend>
+    <!-- Form Title -->
+    <legend>
+        {{legend}}
+    </legend>
 
+    <!-- Address Line 1 -->
     <mat-form-field>
-
-        <input matInput
-               placeholder="Address Line 1"
-               formControlName="addressLine1">
-
+        <input matInput placeholder="Address Line 1" formControlName="addressLine1">
     </mat-form-field>
 
+    <!-- Address Line 2 -->
     <mat-form-field>
-
-        <input matInput
-               placeholder="Address Line 2"
-               formControlName="addressLine2">
-
+        <input matInput placeholder="Address Line 2" formControlName="addressLine2">
     </mat-form-field>
 
+    <!-- Zip Code -->
     <mat-form-field>
-
-        <input matInput
-               placeholder="Zip Code"
-               formControlName="zipCode">
-
+        <input matInput placeholder="Zip Code" formControlName="zipCode">
     </mat-form-field>
 
+    <!-- City -->
     <mat-form-field>
-
-        <input matInput
-               placeholder="City"
-               formControlName="city">
-
+        <input matInput placeholder="City" formControlName="city">
     </mat-form-field>
-
+<!-- 
     <div class="form-val">
-
-        {{form.value | json}}
-
+        {{ form.value | json }}
     </div>
 
     <div class="form-val">
-
-        {{form.valid | json}}
-
+        {{ form.valid | json }}
     </div>
-
+ -->
 </fieldset>
