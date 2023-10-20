@@ -54,6 +54,11 @@ export class CreateCourseStep1Component implements OnInit {
                 Validators.required,
             ],
         },
+        address: {
+            validators: [
+                Validators.required,
+            ],
+        },
     }
     private formControls = {
         title: ['', this.formControlDefs.title],
@@ -61,6 +66,7 @@ export class CreateCourseStep1Component implements OnInit {
         downloadsAllowed: [false, this.formControlDefs.downloadsAllowed],
         longDescription: ['', this.formControlDefs.longDescription],
         category: ['BEGINNER', this.formControlDefs.category],
+        address: [null as IAddress, this.formControlDefs.address],
     }
     public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls);
 
@@ -84,7 +90,10 @@ export class CreateCourseStep1Component implements OnInit {
     public watchForm(): void {
         this.form.valueChanges.pipe(
             filter(() => this.form.valid)
-        ).subscribe((value) => localStorage.setItem('STEP_1', JSON.stringify(value)));
+        ).subscribe((value) => {
+            console.log(value);
+            localStorage.setItem('STEP_1', JSON.stringify(value))
+        });
     }
 
     public setFormValues(): void {
@@ -108,6 +117,7 @@ interface IFormControlDef {
     downloadsAllowed: AbstractControlOptions;
     longDescription: AbstractControlOptions;
     category: AbstractControlOptions;
+    address: AbstractControlOptions;
 }
 
 interface IFormGroupDef {
@@ -116,9 +126,17 @@ interface IFormGroupDef {
     downloadsAllowed: FormControl<boolean>;
     longDescription: FormControl<string>;
     category: FormControl<string>;
+    address: FormControl<IAddress>;
 }
 
 interface ICourseCategory {
     code: string;
     description: string;
+}
+
+interface IAddress {
+    addressLine1: string;
+    addressLine2: string;
+    zipCode: string;
+    city: string;
 }
