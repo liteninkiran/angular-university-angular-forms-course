@@ -9,18 +9,42 @@ import { noop, of } from 'rxjs';
     templateUrl: 'file-upload.component.html',
     styleUrls: ['file-upload.component.scss'],
 })
-export class FileUploadComponent {
+export class FileUploadComponent implements ControlValueAccessor {
 
     @Input() public requiredFileType: string;
 
     public fileName: string = '';
     public fileUploadError = false;
     public uploadProgress: number;
+    public onChange: Function = (fileName: string) => {};
+    public onTouched: Function = () => {};
+    public disabled: boolean = false;
 
     constructor(
         private http: HttpClient,
     ) {
 
+    }
+
+    public writeValue(value: string): void {
+        this.fileName = value;
+    }
+
+    public registerOnChange(onChange: Function): void {
+        this.onChange = onChange;
+    }
+
+    public registerOnTouched(onTouched: any): void {
+        this.onTouched = onTouched;
+    }
+
+    public setDisabledState(disabled: boolean): void {
+        this.disabled = disabled;
+    }
+
+    public onClick(fileUploadEl: HTMLInputElement): void {
+        this.onTouched();
+        fileUploadEl.click();
     }
 
     public onFileSelected(event: Event) {
@@ -50,6 +74,8 @@ export class FileUploadComponent {
             .subscribe(event => {
                 if (event.type === HttpEventType.UploadProgress) {
                     this.uploadProgress = Math.round(event.loaded / event.total * 100);
+                } else if (event.type === HttpEventType.Response) {
+                    this.onChange(this.fileName);
                 }
             });
     }
