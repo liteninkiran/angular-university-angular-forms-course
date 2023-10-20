@@ -35,18 +35,21 @@ export class CreateCourseStep2Component implements OnInit {
         promoEnd: {
             validators: [ ],
         },
+        thumbnail: {
+            validators: [ ],
+        },
     }
     private formControls = {
         courseType: ['premium', this.formControlDefs.courseType],
         price: [null as number, this.formControlDefs.price],
         promoStart: [null as Date, this.formControlDefs.promoStart],
         promoEnd: [null as Date, this.formControlDefs.promoEnd],
+        thumbnail: [null, this.formControlDefs.thumbnail],
     }
     private formOptions: AbstractControlOptions = {
         validators: [
             createPromoRangeValidator(),
         ],
-        updateOn: 'blur',
     }
     public form: FormGroup<IFormGroupDef> = this.fb.group(this.formControls, this.formOptions);
     public priceControl = this.form.get('price');
@@ -82,6 +85,7 @@ interface IFormControlDef {
     price: AbstractControlOptions;
     promoStart: AbstractControlOptions;
     promoEnd: AbstractControlOptions;
+    thumbnail: AbstractControlOptions;
 }
 
 interface IFormGroupDef {
@@ -89,4 +93,5 @@ interface IFormGroupDef {
     price: FormControl<number>;
     promoStart: FormControl<Date>;
     promoEnd: FormControl<Date>;
+    thumbnail: FormControl<any>;
 }
