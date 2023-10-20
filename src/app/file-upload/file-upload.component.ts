@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { catchError, finalize } from 'rxjs/operators';
-import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { noop, of } from 'rxjs';
 
 @Component({
@@ -14,16 +14,23 @@ import { noop, of } from 'rxjs';
             multi: true,
             useExisting: FileUploadComponent,
         },
+        {
+            provide: NG_VALIDATORS,
+            multi: true,
+            useExisting: FileUploadComponent,
+        },
     ],
 })
-export class FileUploadComponent implements ControlValueAccessor {
+export class FileUploadComponent implements ControlValueAccessor, Validator {
 
     @Input() public requiredFileType: string;
 
     public fileName: string = '';
     public fileUploadError = false;
+    public fileUploadSuccess = false;
     public uploadProgress: number;
     public onChange: Function = (fileName: string) => {};
+    public onValidatorChange: Function = (fileName: string) => {};
     public onTouched: Function = () => {};
     public disabled: boolean = false;
 
@@ -32,7 +39,6 @@ export class FileUploadComponent implements ControlValueAccessor {
     ) {
 
     }
-
     public writeValue(value: string): void {
         this.fileName = value;
     }
@@ -52,6 +58,26 @@ export class FileUploadComponent implements ControlValueAccessor {
     public onClick(fileUploadEl: HTMLInputElement): void {
         this.onTouched();
         fileUploadEl.click();
+    }
+
+    public validate(control: AbstractControl<any, any>): ValidationErrors | null {
+        if (this.fileUploadSuccess) {
+            return null;
+        }
+
+        const errors: ValidationErrors = {
+            requiredFileType: this.requiredFileType,
+        }
+
+        if (this.fileUploadError) {
+            errors.uploadFailed = true;
+        }
+
+        return errors;
+    }
+
+    public registerOnValidatorChange?(onValidatorChange: () => void): void {
+        this.onValidatorChange = onValidatorChange;
     }
 
     public onFileSelected(event: Event) {
@@ -82,7 +108,9 @@ export class FileUploadComponent implements ControlValueAccessor {
                 if (event.type === HttpEventType.UploadProgress) {
                     this.uploadProgress = Math.round(event.loaded / event.total * 100);
                 } else if (event.type === HttpEventType.Response) {
+                    this.fileUploadSuccess = true;
                     this.onChange(this.fileName);
+                    this.onValidatorChange();
                 }
             });
     }
