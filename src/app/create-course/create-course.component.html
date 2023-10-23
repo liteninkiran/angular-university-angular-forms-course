@@ -21,7 +21,7 @@
         </mat-step>
 
         <!-- Step 2 -->
-        <mat-step errorMessage="Pricing is in error">
+        <mat-step  [stepControl]="step2.form" errorMessage="Pricing is in error">
 
             <!-- Label -->
             <ng-template matStepLabel>
@@ -33,6 +33,22 @@
 
             <!-- Previous / Next -->
             <stepper-buttons></stepper-buttons>
+
+        </mat-step>
+
+        <!-- Step 3 -->
+        <mat-step [stepControl]="step3.form" errorMessage="Course lessons is in error">
+
+            <!-- Label -->
+            <ng-template matStepLabel>
+                Course lessons
+            </ng-template>
+
+            <!-- Step 2 -->
+            <create-course-step-3 #step3></create-course-step-3>
+
+            <!-- Previous / Next -->
+            <stepper-buttons [config]="config" [disableNext]="!step3.form.valid"></stepper-buttons>
 
         </mat-step>
 

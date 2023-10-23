@@ -90,10 +90,7 @@ export class CreateCourseStep1Component implements OnInit {
     public watchForm(): void {
         this.form.valueChanges.pipe(
             filter(() => this.form.valid)
-        ).subscribe((value) => {
-            console.log(value);
-            localStorage.setItem('STEP_1', JSON.stringify(value))
-        });
+        ).subscribe((value) => localStorage.setItem('STEP_1', JSON.stringify(value)));
     }
 
     public setFormValues(): void {

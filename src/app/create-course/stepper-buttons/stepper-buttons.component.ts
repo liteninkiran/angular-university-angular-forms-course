@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class StepperButtonsComponent implements OnInit {
 
-    @Input() public config: IStepButtonConfig = {
+    private defaultConfig: IStepButtonConfig = {
         prev: {
             text: 'Previous',
             startIcon: 'navigate_before',
@@ -20,24 +20,25 @@ export class StepperButtonsComponent implements OnInit {
         },
     }
 
+    @Input() public config: IStepButtonConfig = this.defaultConfig;
+    @Input() public disableNext = false;
+
     constructor() {
 
     }
 
     public ngOnInit(): void {
-
+        this.config = { ...this.defaultConfig, ...this.config }
     }
 }
 
 export interface IStepButtonConfig {
-    prev: {
-        text: string;
-        startIcon: string;
-        endIcon: string;
-    },
-    next: {
-        text: string;
-        startIcon: string;
-        endIcon: string;
-    },
+    prev?: IButtonConfig,
+    next?: IButtonConfig,
+}
+
+interface IButtonConfig {
+    text?: string;
+    startIcon?: string;
+    endIcon?: string;
 }

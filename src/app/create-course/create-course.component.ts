@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { IStepButtonConfig } from './stepper-buttons/stepper-buttons.component';
 
 @Component({
     selector: 'create-course',
@@ -15,6 +16,12 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     ],
 })
 export class CreateCourseComponent implements OnInit {
+
+    public config: IStepButtonConfig = {
+        next: {
+            text: 'Create Course',
+        },
+    }
 
     constructor() {
 

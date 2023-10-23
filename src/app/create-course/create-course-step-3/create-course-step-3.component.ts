@@ -8,7 +8,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateCourseStep3Component implements OnInit {
 
-    constructor() {
+    public form = this.fb.group({});
+
+    constructor(
+        private fb: FormBuilder,
+    ) {
 
     }
 

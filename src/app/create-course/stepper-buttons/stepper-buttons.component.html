@@ -28,7 +28,7 @@
     <div>
 
         <!-- Next Button -->
-        <button mat-raised-button color="primary" matStepperNext>
+        <button mat-raised-button color="primary" matStepperNext [disabled]="disableNext">
 
             <!-- Start Icon -->
             <mat-icon iconPositionStart *ngIf="config.next.startIcon">
