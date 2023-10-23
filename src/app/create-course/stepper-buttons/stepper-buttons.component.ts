@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
     selector: 'stepper-buttons',
@@ -21,7 +21,10 @@ export class StepperButtonsComponent implements OnInit {
     }
 
     @Input() public config: IStepButtonConfig = this.defaultConfig;
-    @Input() public disableNext = false;
+    @Input() public disabled = false;
+    @Input() public lastStep = false;
+
+    @Output() onSubmitClick = new EventEmitter<void>();
 
     constructor() {
 
@@ -29,6 +32,10 @@ export class StepperButtonsComponent implements OnInit {
 
     public ngOnInit(): void {
         this.config = { ...this.defaultConfig, ...this.config }
+    }
+
+    public submit() {
+        this.onSubmitClick.emit();
     }
 }
 

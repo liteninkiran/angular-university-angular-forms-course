@@ -27,23 +27,33 @@
     <!-- Next Button Container -->
     <div>
 
-        <!-- Next Button -->
-        <button mat-raised-button color="primary" matStepperNext [disabled]="disableNext">
+        <ng-container *ngIf="!lastStep; else lastStepTemplate">
+            <button mat-raised-button color="primary" matStepperNext>
+                <mat-icon iconPositionStart *ngIf="config.next.startIcon">
+                    {{ config.next.startIcon }}
+                </mat-icon>
 
-            <!-- Start Icon -->
-            <mat-icon iconPositionStart *ngIf="config.next.startIcon">
-                {{ config.next.startIcon }}
-            </mat-icon>
+                {{ config.next.text }}
 
-            <!-- Text -->
-            {{ config.next.text }}
+                <mat-icon iconPositionEnd *ngIf="config.next.endIcon">
+                    {{ config.next.endIcon }}
+                </mat-icon>
+            </button>
+        </ng-container>
 
-            <!-- End Icon -->
-            <mat-icon iconPositionEnd *ngIf="config.next.endIcon">
-                {{ config.next.endIcon }}
-            </mat-icon>
+        <ng-template #lastStepTemplate>
+            <button mat-raised-button color="primary" [disabled]="disabled" (click)="submit()">
+                <mat-icon iconPositionStart *ngIf="config.next.startIcon">
+                    {{ config.next.startIcon }}
+                </mat-icon>
 
-        </button>
+                {{ config.next.text }}
+
+                <mat-icon iconPositionEnd *ngIf="config.next.endIcon">
+                    {{ config.next.endIcon }}
+                </mat-icon>
+            </button>
+        </ng-template>
 
     </div>
 

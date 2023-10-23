@@ -12,11 +12,11 @@ export class CreateCourseStep3Component implements OnInit {
         lessons: this.fb.array([]),
     });
 
-    //public lessons: FormArray = this.form.controls['lessons'];
+    public lessons: FormArray = this.form.controls['lessons'];
 
-    get lessons() {
-        return this.form.controls['lessons'] as FormArray;
-    }
+    // get lessons() {
+    //     return this.form.controls['lessons'] as FormArray;
+    // }
 
     constructor(
         private fb: FormBuilder,

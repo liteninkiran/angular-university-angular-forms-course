@@ -9,12 +9,6 @@ import { createPromoRangeValidator } from '../../validators/date-range.validator
 })
 export class CreateCourseStep2Component implements OnInit {
 
-    public validatorDefs = {
-        title: {
-            minLength: 5,
-            maxLength: 60,
-        },
-    }
     private formControlDefs: IFormControlDef = {
         courseType: {
             validators: [
