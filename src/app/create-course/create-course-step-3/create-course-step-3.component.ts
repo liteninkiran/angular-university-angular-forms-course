@@ -8,7 +8,15 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateCourseStep3Component implements OnInit {
 
-    public form = this.fb.group({});
+    public form = this.fb.group({
+        lessons: this.fb.array([]),
+    });
+
+    //public lessons: FormArray = this.form.controls['lessons'];
+
+    get lessons() {
+        return this.form.controls['lessons'] as FormArray;
+    }
 
     constructor(
         private fb: FormBuilder,
@@ -18,5 +26,17 @@ export class CreateCourseStep3Component implements OnInit {
 
     public ngOnInit(): void {
 
+    }
+
+    public addLesson(): void {
+        const lessonForm = this.fb.group({
+            title: ['', Validators.required],
+            level: ['beginner', Validators.required],
+        });
+        this.lessons.push(lessonForm);
+    }
+
+    public deleteLesson(index: number): void {
+        this.lessons.removeAt(index);
     }
 }
